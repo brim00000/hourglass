@@ -398,6 +398,13 @@ public sealed class TimerOptions : INotifyPropertyChanged
 
             field = value;
             PropertyChanged.Notify(this);
+
+            if (!value || !CloseWhenExpiredAfterClick)
+            {
+                return;
+            }
+
+            CloseWhenExpiredAfterClick = false;
         }
     }
 
@@ -417,6 +424,13 @@ public sealed class TimerOptions : INotifyPropertyChanged
 
             field = value;
             PropertyChanged.Notify(this);
+
+            if (!value || !CloseWhenExpired)
+            {
+                return;
+            }
+
+            CloseWhenExpired = false;
         }
     }
 

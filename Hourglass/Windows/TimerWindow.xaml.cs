@@ -2077,10 +2077,8 @@ public sealed partial class TimerWindow : INotifyPropertyChanged, IRestorableWin
     }
 
     private bool ShouldCloseWhenExpiredAfterClick(MouseButtonEventArgs e) =>
-        e.ChangedButton == MouseButton.Left &&
         Mode == TimerWindowMode.Status &&
         Timer.State == TimerState.Expired &&
-        Options.CloseWhenExpired &&
         Options.CloseWhenExpiredAfterClick;
 
     /// <summary>

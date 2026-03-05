@@ -408,20 +408,14 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
         _popUpWhenExpiredMenuItem.IsChecked = _timerWindow.Options.PopUpWhenExpired;
 
         // Close when expired
-        if ((!_timerWindow.Options.LoopTimer || !_timerWindow.Timer.SupportsLooping) && !_timerWindow.Options.LoopSound)
-        {
-            _closeWhenExpiredMenuItem.IsChecked = _timerWindow.Options.CloseWhenExpired;
-            _closeWhenExpiredMenuItem.IsEnabled = true;
-            _closeWhenExpiredAfterClickMenuItem.IsChecked = _timerWindow.Options.CloseWhenExpiredAfterClick;
-            _closeWhenExpiredAfterClickMenuItem.IsEnabled = _timerWindow.Options.CloseWhenExpired;
-        }
-        else
-        {
-            _closeWhenExpiredMenuItem.IsChecked = false;
-            _closeWhenExpiredMenuItem.IsEnabled = false;
-            _closeWhenExpiredAfterClickMenuItem.IsChecked = false;
-            _closeWhenExpiredAfterClickMenuItem.IsEnabled = false;
-        }
+        bool canCloseWhenExpired = (!_timerWindow.Options.LoopTimer || !_timerWindow.Timer.SupportsLooping) && !_timerWindow.Options.LoopSound;
+        bool canCloseWhenExpiredAfterClick = !_timerWindow.Options.LoopTimer || !_timerWindow.Timer.SupportsLooping;
+
+        _closeWhenExpiredMenuItem.IsChecked = canCloseWhenExpired && _timerWindow.Options.CloseWhenExpired;
+        _closeWhenExpiredMenuItem.IsEnabled = canCloseWhenExpired;
+
+        _closeWhenExpiredAfterClickMenuItem.IsChecked = canCloseWhenExpiredAfterClick && _timerWindow.Options.CloseWhenExpiredAfterClick;
+        _closeWhenExpiredAfterClickMenuItem.IsEnabled = canCloseWhenExpiredAfterClick;
 
         _closeWhenExpiredMenuItem.Header = GetMenuItemHeaderWithTimeout(
             Properties.Resources.ContextMenuCloseWhenExpiredMenuItem,
@@ -616,6 +610,15 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
     /// <param name="e">The event data.</param>
     private void CheckableMenuItemClick(object sender, RoutedEventArgs e)
     {
+        if (ReferenceEquals(sender, _closeWhenExpiredMenuItem) && _closeWhenExpiredMenuItem.IsChecked)
+        {
+            _closeWhenExpiredAfterClickMenuItem.IsChecked = false;
+        }
+        else if (ReferenceEquals(sender, _closeWhenExpiredAfterClickMenuItem) && _closeWhenExpiredAfterClickMenuItem.IsChecked)
+        {
+            _closeWhenExpiredMenuItem.IsChecked = false;
+        }
+
         UpdateOptionsFromMenu();
         UpdateMenuFromOptions();
     }
