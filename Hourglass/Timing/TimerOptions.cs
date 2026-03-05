@@ -89,6 +89,7 @@ public sealed class TimerOptions : INotifyPropertyChanged
         StartPaused = false;
         PopUpWhenExpired = true;
         CloseWhenExpired = false;
+        CloseWhenExpiredAfterClick = false;
         MinimizeWhenExpired = false;
         ShutDownWhenExpired = false;
         Theme = Theme.DefaultTheme;
@@ -401,6 +402,25 @@ public sealed class TimerOptions : INotifyPropertyChanged
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether clicking the timer window when it is expired should close the window.
+    /// </summary>
+    public bool CloseWhenExpiredAfterClick
+    {
+        get;
+
+        set
+        {
+            if (field == value)
+            {
+                return;
+            }
+
+            field = value;
+            PropertyChanged.Notify(this);
+        }
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the timer window should be minimized when the timer expires.
     /// </summary>
     public bool MinimizeWhenExpired
@@ -602,6 +622,7 @@ public sealed class TimerOptions : INotifyPropertyChanged
         StartPaused = options.StartPaused;
         PopUpWhenExpired = options.PopUpWhenExpired;
         CloseWhenExpired = options.CloseWhenExpired;
+        CloseWhenExpiredAfterClick = options.CloseWhenExpiredAfterClick;
         MinimizeWhenExpired = options.MinimizeWhenExpired;
         ShutDownWhenExpired = options.ShutDownWhenExpired;
         Theme = options.Theme;
@@ -627,6 +648,7 @@ public sealed class TimerOptions : INotifyPropertyChanged
             nameof(StartPaused),
             nameof(PopUpWhenExpired),
             nameof(CloseWhenExpired),
+            nameof(CloseWhenExpiredAfterClick),
             nameof(MinimizeWhenExpired),
             nameof(ShutDownWhenExpired),
             nameof(Theme),
@@ -661,6 +683,7 @@ public sealed class TimerOptions : INotifyPropertyChanged
         StartPaused = info.StartPaused;
         PopUpWhenExpired = info.PopUpWhenExpired;
         CloseWhenExpired = info.CloseWhenExpired;
+        CloseWhenExpiredAfterClick = info.CloseWhenExpiredAfterClick;
         MinimizeWhenExpired = info.MinimizeWhenExpired;
         ShutDownWhenExpired = info.ShutDownWhenExpired;
         Theme = Theme.FromIdentifier(info.ThemeIdentifier);
@@ -686,6 +709,7 @@ public sealed class TimerOptions : INotifyPropertyChanged
             nameof(StartPaused),
             nameof(PopUpWhenExpired),
             nameof(CloseWhenExpired),
+            nameof(CloseWhenExpiredAfterClick),
             nameof(MinimizeWhenExpired),
             nameof(ShutDownWhenExpired),
             nameof(Theme),
@@ -716,6 +740,7 @@ public sealed class TimerOptions : INotifyPropertyChanged
             StartPaused = StartPaused,
             PopUpWhenExpired = PopUpWhenExpired,
             CloseWhenExpired = CloseWhenExpired,
+            CloseWhenExpiredAfterClick = CloseWhenExpiredAfterClick,
             MinimizeWhenExpired = MinimizeWhenExpired,
             ShutDownWhenExpired = ShutDownWhenExpired,
             ThemeIdentifier = Theme?.Identifier,

@@ -97,6 +97,11 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
     private MenuItem _closeWhenExpiredMenuItem = null!;
 
     /// <summary>
+    /// The "Close when expired after click" <see cref="MenuItem"/>.
+    /// </summary>
+    private MenuItem _closeWhenExpiredAfterClickMenuItem = null!;
+
+    /// <summary>
     /// The "Minimize when expired" <see cref="MenuItem"/>.
     /// </summary>
     private MenuItem _minimizeWhenExpiredMenuItem = null!;
@@ -407,11 +412,15 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
         {
             _closeWhenExpiredMenuItem.IsChecked = _timerWindow.Options.CloseWhenExpired;
             _closeWhenExpiredMenuItem.IsEnabled = true;
+            _closeWhenExpiredAfterClickMenuItem.IsChecked = _timerWindow.Options.CloseWhenExpiredAfterClick;
+            _closeWhenExpiredAfterClickMenuItem.IsEnabled = _timerWindow.Options.CloseWhenExpired;
         }
         else
         {
             _closeWhenExpiredMenuItem.IsChecked = false;
             _closeWhenExpiredMenuItem.IsEnabled = false;
+            _closeWhenExpiredAfterClickMenuItem.IsChecked = false;
+            _closeWhenExpiredAfterClickMenuItem.IsEnabled = false;
         }
 
         _closeWhenExpiredMenuItem.Header = GetMenuItemHeaderWithTimeout(
@@ -539,6 +548,8 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
         {
             _timerWindow.Options.CloseWhenExpired = _closeWhenExpiredMenuItem.IsChecked;
         }
+        _timerWindow.Options.CloseWhenExpiredAfterClick =
+            _timerWindow.Options.CloseWhenExpired && _closeWhenExpiredAfterClickMenuItem.IsChecked;
 
         // Minimize when expired
         _timerWindow.Options.MinimizeWhenExpired = _minimizeWhenExpiredMenuItem.IsChecked;
@@ -826,6 +837,14 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
         };
         _closeWhenExpiredMenuItem.Click += CheckableMenuItemClick;
         Items.Add(_closeWhenExpiredMenuItem);
+
+        // Close when expired after click
+        _closeWhenExpiredAfterClickMenuItem = new CheckableMenuItem
+        {
+            Header = Properties.Resources.ContextMenuCloseWhenExpiredAfterClickMenuItem
+        };
+        _closeWhenExpiredAfterClickMenuItem.Click += CheckableMenuItemClick;
+        Items.Add(_closeWhenExpiredAfterClickMenuItem);
 
         // Minimize when expired
         _minimizeWhenExpiredMenuItem = new CheckableMenuItem
@@ -1810,4 +1829,3 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
             (IsCheckable, StaysOpenOnClick) = (true, true);
     }
 }
-

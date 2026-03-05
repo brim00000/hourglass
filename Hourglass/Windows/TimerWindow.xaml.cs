@@ -2051,6 +2051,13 @@ public sealed partial class TimerWindow : INotifyPropertyChanged, IRestorableWin
     /// <param name="e">The event data.</param>
     private void WindowMouseDown(object sender, MouseButtonEventArgs e)
     {
+        if (ShouldCloseWhenExpiredAfterClick(e))
+        {
+            Close();
+            e.Handled = true;
+            return;
+        }
+
         bool isLeftButton = e.ChangedButton == MouseButton.Left;
         if (isLeftButton)
         {
@@ -2068,6 +2075,13 @@ public sealed partial class TimerWindow : INotifyPropertyChanged, IRestorableWin
                     CancelOrReset() &&
                     isLeftButton;
     }
+
+    private bool ShouldCloseWhenExpiredAfterClick(MouseButtonEventArgs e) =>
+        e.ChangedButton == MouseButton.Left &&
+        Mode == TimerWindowMode.Status &&
+        Timer.State == TimerState.Expired &&
+        Options.CloseWhenExpired &&
+        Options.CloseWhenExpiredAfterClick;
 
     /// <summary>
     /// Invoked when a mouse button is clicked two or more times on the <see cref="TimerWindow"/>.

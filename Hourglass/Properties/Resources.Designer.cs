@@ -323,6 +323,15 @@ namespace Hourglass.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close on _click when expired.
+        /// </summary>
+        public static string ContextMenuCloseWhenExpiredAfterClickMenuItem {
+            get {
+                return ResourceManager.GetString("ContextMenuCloseWhenExpiredAfterClickMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Dark theme.
         /// </summary>
         public static string ContextMenuDarkThemeMenuItem {
