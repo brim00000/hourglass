@@ -148,6 +148,11 @@ public sealed class CommandLineArguments
     public bool CloseWhenExpired { get; private set; }
 
     /// <summary>
+    /// Gets a value indicating whether clicking the timer window when it is expired should close the window.
+    /// </summary>
+    public bool CloseWhenExpiredAfterClick { get; private set; }
+
+    /// <summary>
     /// Gets a value indicating whether the timer window should be minimized when the timer expires.
     /// </summary>
     public bool MinimizeWhenExpired { get; private set; }
@@ -340,6 +345,7 @@ public sealed class CommandLineArguments
             StartPaused = StartPaused,
             PopUpWhenExpired = PopUpWhenExpired,
             CloseWhenExpired = CloseWhenExpired,
+            CloseWhenExpiredAfterClick = CloseWhenExpiredAfterClick,
             MinimizeWhenExpired = MinimizeWhenExpired,
             ShutDownWhenExpired = ShutDownWhenExpired,
             Theme = Theme,
@@ -390,6 +396,7 @@ public sealed class CommandLineArguments
             PauseBeforeLoopTimer = options.PauseBeforeLoopTimer,
             PopUpWhenExpired = options.PopUpWhenExpired,
             CloseWhenExpired = options.CloseWhenExpired,
+            CloseWhenExpiredAfterClick = options.CloseWhenExpiredAfterClick,
             MinimizeWhenExpired = options.MinimizeWhenExpired,
             ShutDownWhenExpired = options.ShutDownWhenExpired,
             Theme = options.Theme,
@@ -437,6 +444,7 @@ public sealed class CommandLineArguments
             PauseBeforeLoopTimer = defaultOptions.PauseBeforeLoopTimer,
             PopUpWhenExpired = defaultOptions.PopUpWhenExpired,
             CloseWhenExpired = defaultOptions.CloseWhenExpired,
+            CloseWhenExpiredAfterClick = defaultOptions.CloseWhenExpiredAfterClick,
             MinimizeWhenExpired = defaultOptions.MinimizeWhenExpired,
             ShutDownWhenExpired = defaultOptions.ShutDownWhenExpired,
             Theme = defaultOptions.Theme,
@@ -725,7 +733,17 @@ public sealed class CommandLineArguments
                         argumentsBasedOnMostRecentOptions.CloseWhenExpired);
 
                     argumentsBasedOnMostRecentOptions.CloseWhenExpired = closeWhenExpired;
+                    if (closeWhenExpired)
+                    {
+                        argumentsBasedOnMostRecentOptions.CloseWhenExpiredAfterClick = false;
+                    }
+
                     argumentsBasedOnFactoryDefaults.CloseWhenExpired = closeWhenExpired;
+                    if (closeWhenExpired)
+                    {
+                        argumentsBasedOnFactoryDefaults.CloseWhenExpiredAfterClick = false;
+                    }
+
                     break;
 
                 case "--minimize-when-expired":
