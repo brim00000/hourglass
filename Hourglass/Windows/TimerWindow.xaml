@@ -12,6 +12,7 @@
         StateChanged="WindowStateChanged"
         Closing="WindowClosing"
         Closed="WindowClosed"
+        PreviewMouseDown="WindowPreviewMouseDown"
         MouseDown="WindowMouseDown"
         MouseDoubleClick="WindowMouseDoubleClick"
         PreviewKeyDown="WindowPreviewKeyDown"

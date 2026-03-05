@@ -2045,19 +2045,28 @@ public sealed partial class TimerWindow : INotifyPropertyChanged, IRestorableWin
     }
 
     /// <summary>
+    /// Invoked before any mouse button is depressed on the <see cref="TimerWindow"/>.
+    /// </summary>
+    /// <param name="sender">The <see cref="TimerWindow"/>.</param>
+    /// <param name="e">The event data.</param>
+    private void WindowPreviewMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (!ShouldCloseWhenExpiredAfterClick(e))
+        {
+            return;
+        }
+
+        Close();
+        e.Handled = true;
+    }
+
+    /// <summary>
     /// Invoked when any mouse button is depressed on the <see cref="TimerWindow"/>.
     /// </summary>
     /// <param name="sender">The <see cref="TimerWindow"/>.</param>
     /// <param name="e">The event data.</param>
     private void WindowMouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (ShouldCloseWhenExpiredAfterClick(e))
-        {
-            Close();
-            e.Handled = true;
-            return;
-        }
-
         bool isLeftButton = e.ChangedButton == MouseButton.Left;
         if (isLeftButton)
         {

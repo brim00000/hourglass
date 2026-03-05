@@ -412,10 +412,10 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
         bool canCloseWhenExpiredAfterClick = !_timerWindow.Options.LoopTimer || !_timerWindow.Timer.SupportsLooping;
 
         _closeWhenExpiredMenuItem.IsChecked = canCloseWhenExpired && _timerWindow.Options.CloseWhenExpired;
-        _closeWhenExpiredMenuItem.IsEnabled = canCloseWhenExpired;
+        _closeWhenExpiredMenuItem.IsEnabled = canCloseWhenExpired && !_timerWindow.Options.CloseWhenExpiredAfterClick;
 
         _closeWhenExpiredAfterClickMenuItem.IsChecked = canCloseWhenExpiredAfterClick && _timerWindow.Options.CloseWhenExpiredAfterClick;
-        _closeWhenExpiredAfterClickMenuItem.IsEnabled = canCloseWhenExpiredAfterClick;
+        _closeWhenExpiredAfterClickMenuItem.IsEnabled = canCloseWhenExpiredAfterClick && !_timerWindow.Options.CloseWhenExpired;
 
         _closeWhenExpiredMenuItem.Header = GetMenuItemHeaderWithTimeout(
             Properties.Resources.ContextMenuCloseWhenExpiredMenuItem,
@@ -538,14 +538,8 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
         _timerWindow.Options.PopUpWhenExpired = _popUpWhenExpiredMenuItem.IsChecked;
 
         // Close when expired
-        if (_closeWhenExpiredMenuItem.IsEnabled)
-        {
-            _timerWindow.Options.CloseWhenExpired = _closeWhenExpiredMenuItem.IsChecked;
-        }
-        if (_closeWhenExpiredAfterClickMenuItem.IsEnabled)
-        {
-            _timerWindow.Options.CloseWhenExpiredAfterClick = _closeWhenExpiredAfterClickMenuItem.IsChecked;
-        }
+        _timerWindow.Options.CloseWhenExpired = _closeWhenExpiredMenuItem.IsEnabled && _closeWhenExpiredMenuItem.IsChecked;
+        _timerWindow.Options.CloseWhenExpiredAfterClick = _closeWhenExpiredAfterClickMenuItem.IsEnabled && _closeWhenExpiredAfterClickMenuItem.IsChecked;
 
         // Minimize when expired
         _timerWindow.Options.MinimizeWhenExpired = _minimizeWhenExpiredMenuItem.IsChecked;
