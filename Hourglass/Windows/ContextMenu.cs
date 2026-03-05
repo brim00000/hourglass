@@ -548,8 +548,10 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
         {
             _timerWindow.Options.CloseWhenExpired = _closeWhenExpiredMenuItem.IsChecked;
         }
-        _timerWindow.Options.CloseWhenExpiredAfterClick =
-            _timerWindow.Options.CloseWhenExpired && _closeWhenExpiredAfterClickMenuItem.IsChecked;
+        if (_closeWhenExpiredAfterClickMenuItem.IsEnabled)
+        {
+            _timerWindow.Options.CloseWhenExpiredAfterClick = _closeWhenExpiredAfterClickMenuItem.IsChecked;
+        }
 
         // Minimize when expired
         _timerWindow.Options.MinimizeWhenExpired = _minimizeWhenExpiredMenuItem.IsChecked;
