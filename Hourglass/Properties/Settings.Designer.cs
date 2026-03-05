@@ -185,6 +185,18 @@ namespace Hourglass.Properties {
                 this["SaveTimerOnClosing"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PromptOnCloseRunningTimer {
+            get {
+                return ((bool)(this["PromptOnCloseRunningTimer"]));
+            }
+            set {
+                this["PromptOnCloseRunningTimer"] = value;
+            }
+        }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

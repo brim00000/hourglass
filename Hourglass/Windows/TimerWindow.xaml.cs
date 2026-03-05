@@ -2195,7 +2195,7 @@ public sealed partial class TimerWindow : INotifyPropertyChanged, IRestorableWin
 
         if (ForceClose ||
             DoNotPromptOnExit ||
-            !Options.PromptOnExit ||
+            !Settings.Default.PromptOnCloseRunningTimer ||
             Timer.State == TimerState.Stopped ||
             Timer.State == TimerState.Expired)
         {

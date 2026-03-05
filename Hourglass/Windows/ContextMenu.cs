@@ -378,8 +378,8 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
         // Full screen
         _fullScreenMenuItem.IsChecked = _timerWindow.IsFullScreen;
 
-        // Prompt on exit
-        _promptOnExitMenuItem.IsChecked = _timerWindow.Options.PromptOnExit;
+        // Prompt on close (running timer)
+        _promptOnExitMenuItem.IsChecked = Settings.Default.PromptOnCloseRunningTimer;
 
         // Show progress in taskbar
         _showProgressInTaskbarMenuItem.IsChecked = _timerWindow.Options.ShowProgressInTaskbar;
@@ -513,7 +513,8 @@ public sealed class ContextMenu : System.Windows.Controls.ContextMenu
         // Full screen
         _timerWindow.IsFullScreen = _fullScreenMenuItem.IsChecked;
 
-        // Prompt on exit
+        // Prompt on close (running timer)
+        Settings.Default.PromptOnCloseRunningTimer = _promptOnExitMenuItem.IsChecked;
         _timerWindow.Options.PromptOnExit = _promptOnExitMenuItem.IsChecked;
 
         // Show progress in taskbar

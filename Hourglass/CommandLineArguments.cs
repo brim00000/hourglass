@@ -384,7 +384,7 @@ public sealed class CommandLineArguments
             Title = null,
             AlwaysOnTop = options.AlwaysOnTop,
             IsFullScreen = windowSize.IsFullScreen,
-            PromptOnExit = options.PromptOnExit,
+            PromptOnExit = Settings.Default.PromptOnCloseRunningTimer,
             ShowProgressInTaskbar = options.ShowProgressInTaskbar,
             DoNotKeepComputerAwake = options.DoNotKeepComputerAwake,
             ReverseProgressBar = options.ReverseProgressBar,
